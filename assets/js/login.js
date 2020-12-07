@@ -46,16 +46,19 @@ $(function () {
 
     })
   })
-  $('#form_reg').on('submit', function (e) {
+
+  $('#form_login').on('submit', function (e) {
     e.preventDefault()
     $.ajax({
-      url:'/api/reguser',
-      type:'POST',
+      url:'/api/login',
+      method:'POST',
+      data:$(this).serialize(),
       success:function (res) {
         if(res.status !== 0) {
           return layui.layer.msg(res.message)
         }
-        layui.layer.msg(res.message)
+        layui.layer.msg(res.message)  
+        localStorage.setItem('token',res.token) 
         location.href = 'index.html'
       }
     })
